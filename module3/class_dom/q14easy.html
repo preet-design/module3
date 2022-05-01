@@ -29,16 +29,21 @@
     <script>
       // Q- Make remove all button work  and make individual delete btn work 
       //   Solution:
-      let bodytag = document.querySelectorAll("#all");
-        bodytag.removeAll("click",function(){
-            document.getElementById('delete-all').addEventListener('click', removeAll);
+      let removeall = document.querySelector("#all");
+      removeall.addEventListener("click",function(){
+        let ul = document.querySelector("ul");
+        ul.remove();
+      })
 
-        let litag = document.querySelectorAll("li");
+      let allbtn = document.querySelectorAll("ul button");
+      for(let i = 0 ; i < allbtn.length ; i++){
+        allbtn[i].addEventListener("click",function(e){
+        console.log(e);
+        e.target.parentElement.remove();
+      })
 
-
-        })
-      
-
-    </script>
+    }
+        
+       </script>
   </body>
 </html>

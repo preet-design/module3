@@ -101,6 +101,24 @@
     <script>
       // Q Make the filter work
       
+      let selectTag = document.querySelector("select");
+      selectTag.addEventListener("change",function(e){
+        //console.log(e.target.value);
+        let filter = e.target.value;
+        let allmovies = document.querySelectorAll(".movies");
+      
+        for(let i=0;i<allmovies.length;i++){
+        
+          let ptag = allmovies[i].querySelector("p");
+        let allmoviesfilter = ptag.getAttribute("data-category");
+        
+        if(filter == 'none' || filter == allmoviesfilter){
+          allmovies[i].style.display="block";
+        }else{
+          allmovies[i].style.display="none";
+        }
+      }
+      })
     </script>
   </body>
 </html>
