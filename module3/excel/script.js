@@ -1,5 +1,3 @@
-
-
 let topRow = document.querySelector(".top-row");
 let leftCol = document.querySelector(".left-col");
 let topLeftCell = document.querySelector(".top-left-cell");
@@ -16,6 +14,7 @@ cellsContentDiv.addEventListener("scroll",function(e){
     topLeftCell.style.top = scrollFromTop+"px";
     topLeftCell.style.left = scrollFromLeft+"px";
 })
+
 
 for(let i=0;i<allCells.length;i++){
     allCells[i].addEventListener("click",function(e){
@@ -41,6 +40,22 @@ for(let i=0;i<allCells.length;i++){
         console.log("After UPdate",cellObject);
         updateChildren(cellObject);
     })
+
+    allCells[i].addEventListener("keydown",function(e){
+        if(e.key == 'Backspace'){
+            let cell = e.target;
+            let {rowId,colId} = getRowIdColIdFromElement(cell);
+            let cellObject = db[rowId][colId];
+            if(cellObject.formula){
+                //update db
+                cell.formula = "";
+                //update ui 
+                formulaInput.value = "";
+                cell.textContent = "";
+                removeFormula(cellObject);
+            }
+        }
+    })
 }
 
 
@@ -55,5 +70,6 @@ formulaInput.addEventListener("blur",function(e){
         cellObject.formula = formula;
         //update ui
         lastSelectedCell.textContent = computedValue;
+        updateChildren(cellObject);
     }
 })
