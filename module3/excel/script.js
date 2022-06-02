@@ -8,7 +8,6 @@ let addressInput = document.querySelector("#address");
 let formulaInput = document.querySelector("#formula");
 let lastSelectedCell;
 
-
 cellsContentDiv.addEventListener("scroll",function(e){
     let scrollFromTop = e.target.scrollTop;
     let scrollFromLeft = e.target.scrollLeft;
@@ -17,6 +16,7 @@ cellsContentDiv.addEventListener("scroll",function(e){
     topLeftCell.style.top = scrollFromTop+"px";
     topLeftCell.style.left = scrollFromLeft+"px";
 })
+
 for(let i=0;i<allCells.length;i++){
     allCells[i].addEventListener("click",function(e){
         let rowId = Number(e.target.getAttribute("rowid"));
@@ -39,6 +39,7 @@ for(let i=0;i<allCells.length;i++){
         }
         cellObject.value = cellValue;
         console.log("After UPdate",cellObject);
+        updateChildren(cellObject);
     })
 }
 
@@ -48,7 +49,7 @@ formulaInput.addEventListener("blur",function(e){
     if(formula){
         let {rowId,colId} = getRowIdColIdFromElement(lastSelectedCell);
         let cellObject = db[rowId][colId];
-        let computedValue = solveFormula(formula , cellObject); // will implement in next commit
+        let computedValue = solveFormula(formula,cellObject); // will implement in next commit
         //update db
         cellObject.value = computedValue;
         cellObject.formula = formula;
